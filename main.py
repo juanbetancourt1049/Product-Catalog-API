@@ -1,19 +1,19 @@
 import os
 from dotenv import load_dotenv
 from fastapi import FastAPI, Depends, HTTPException, status, APIRouter
-from fastapi.responses import FileResponse
+
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from datetime import timedelta
 
 from crud import get_vendedor_by_email, create_vendedor, get_productos, create_producto as crud_create_producto, update_producto as crud_update_producto, delete_producto as crud_delete_producto
-from models import Base, Vendedor, Producto
+from models import Vendedor, Producto
 from schemas import VendedorCreate, Vendedor as VendedorSchema, Token, TokenData, Producto as ProductoSchema, ProductoCreate, ProductoUpdate
 from security import ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, decode_access_token, verify_password
 from gemini_client import generar_descripcion, generar_imagen
-from database import SessionLocal, engine
-from fastapi.staticfiles import StaticFiles
+from database import SessionLocal, engine, Base
+
 
 load_dotenv()
 
@@ -123,8 +123,4 @@ def update_producto(producto_id: int, producto: ProductoUpdate, current_vendedor
 app.include_router(product_router)
 
 # Serve static files
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
-
-@app.get("/")
-async def serve_frontend():
-    return FileResponse("frontend/index.html")
+app.mount("/static",
