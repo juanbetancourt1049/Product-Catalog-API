@@ -10,7 +10,7 @@ class Vendedor(VendedorBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class Token(BaseModel):
     access_token: str
@@ -37,4 +37,4 @@ class Producto(ProductoBase):
     imagen_url: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True

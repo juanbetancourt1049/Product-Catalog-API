@@ -1,4 +1,4 @@
-fastapi
+fastapi==0.121.2
 SQLAlchemy
 mysql-connector-python
 passlib[bcrypt]
@@ -6,3 +6,4 @@ python-jose[cryptography]
 uvicorn
 python-dotenv
 psycopg2-binary
+pydantic==2.12.4
