@@ -8,3 +8,4 @@ python-dotenv
 psycopg2-binary
 pydantic==2.12.4
 python-multipart
+bcrypt
