@@ -1,0 +1,8 @@
+fastapi
+SQLAlchemy
+mysql-connector-python
+passlib[bcrypt]
+python-jose[cryptography]
+uvicorn
+python-dotenv
+psycopg2-binary
