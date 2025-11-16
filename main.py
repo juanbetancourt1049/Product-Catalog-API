@@ -17,7 +17,11 @@ from database import SessionLocal, engine, Base
 
 load_dotenv()
 
+print("Intentando eliminar todas las tablas existentes...")
+Base.metadata.drop_all(bind=engine)
+print("Intentando crear todas las tablas...")
 Base.metadata.create_all(bind=engine)
+print("Proceso de creación/eliminación de tablas completado.")
 
 origins = [
     "http://localhost:8000",
