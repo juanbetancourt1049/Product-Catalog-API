@@ -18,3 +18,4 @@ class Producto(Base):
     precio = Column(Float)
     descripcion_marketing = Column(String)
     imagen_url = Column(String)
+    vendedor_email = Column(String, index=True)

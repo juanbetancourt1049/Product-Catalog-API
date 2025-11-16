@@ -17,8 +17,8 @@ def create_vendedor(db: Session, vendedor: VendedorCreate):
 def get_productos(db: Session, skip: int = 0, limit: int = 100):
     return db.query(Producto).offset(skip).limit(limit).all()
 
-def create_producto(db: Session, producto: ProductoCreate, descripcion_marketing: str, imagen_url: str):
-    db_producto = Producto(nombre=producto.nombre, precio=producto.precio, descripcion_marketing=descripcion_marketing, imagen_url=imagen_url)
+def create_producto(db: Session, producto: ProductoCreate, descripcion_marketing: str, imagen_url: str, vendedor_email: str):
+    db_producto = Producto(nombre=producto.nombre, precio=producto.precio, descripcion_marketing=descripcion_marketing, imagen_url=imagen_url, vendedor_email=vendedor_email)
     db.add(db_producto)
     db.commit()
     db.refresh(db_producto)
@@ -35,8 +35,8 @@ def update_producto(db: Session, producto_id: int, producto_update: ProductoUpda
         db.refresh(db_producto)
     return db_producto
 
-def delete_producto(db: Session, producto_id: int):
-    db_producto = db.query(Producto).filter(Producto.id == producto_id).first()
+def delete_producto(db: Session, producto_id: int, vendedor_email: str):
+    db_producto = db.query(Producto).filter(Producto.id == producto_id, Producto.vendedor_email == vendedor_email).first()
     if db_producto:
         db.delete(db_producto)
         db.commit()

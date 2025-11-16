@@ -103,12 +103,12 @@ def create_producto(producto: ProductoCreate, current_vendedor: VendedorSchema =
     imagen_url = generar_imagen(descripcion_marketing, producto.nombre)
 
     # Crear el producto en la base de datos
-    db_producto = crud_create_producto(db=db, producto=producto, descripcion_marketing=descripcion_marketing, imagen_url=imagen_url)
+    db_producto = crud_create_producto(db=db, producto=producto, descripcion_marketing=descripcion_marketing, imagen_url=imagen_url, vendedor_email=current_vendedor.email)
     return db_producto
 
 @product_router.delete("/productos/{producto_id}")
 def delete_producto(producto_id: int, current_vendedor: VendedorSchema = Depends(get_current_vendedor), db: Session = Depends(get_db)):
-    db_producto = crud_delete_producto(db=db, producto_id=producto_id)
+    db_producto = crud_delete_producto(db=db, producto_id=producto_id, vendedor_email=current_vendedor.email)
     if db_producto is None:
         raise HTTPException(status_code=404, detail="Producto no encontrado")
     return {"message": "Producto eliminado exitosamente"}

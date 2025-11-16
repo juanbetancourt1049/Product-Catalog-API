@@ -22,7 +22,8 @@ class TokenData(BaseModel):
 class ProductoBase(BaseModel):
     nombre: str
     precio: float
-    imagen_url: str | None = None
+    imagen_url: str
+    vendedor_email: str | None = None
 
 class ProductoCreate(ProductoBase):
     pass
