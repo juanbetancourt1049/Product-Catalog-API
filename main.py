@@ -17,6 +17,7 @@ from database import SessionLocal, engine, Base
 
 load_dotenv()
 
+Base.metadata.drop_all(bind=engine)
 Base.metadata.create_all(bind=engine)
 
 origins = [
