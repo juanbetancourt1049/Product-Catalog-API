@@ -101,6 +101,7 @@ def read_productos(current_vendedor: VendedorSchema = Depends(get_current_vended
 
 @product_router.post("/productos/", response_model=ProductoSchema)
 def create_producto(producto: ProductoCreate, current_vendedor: VendedorSchema = Depends(get_current_vendedor), db: Session = Depends(get_db)):
+    print(f"[main.py] Creando producto: {producto.nombre}, Precio: {producto.precio}, Vendedor Email: {current_vendedor.email}")
     # Generar descripción de marketing con Gemini
     descripcion_marketing = generar_descripcion(producto.nombre)
     # Generar URL de imagen con Gemini (o la API de tu elección)
@@ -112,6 +113,7 @@ def create_producto(producto: ProductoCreate, current_vendedor: VendedorSchema =
 
 @product_router.delete("/productos/{producto_id}")
 def delete_producto(producto_id: int, current_vendedor: VendedorSchema = Depends(get_current_vendedor), db: Session = Depends(get_db)):
+    print(f"[main.py] Intentando eliminar producto ID: {producto_id}, Vendedor Email: {current_vendedor.email}")
     db_producto = crud_delete_producto(db=db, producto_id=producto_id, vendedor_email=current_vendedor.email)
     if db_producto is None:
         raise HTTPException(status_code=404, detail="Producto no encontrado")
