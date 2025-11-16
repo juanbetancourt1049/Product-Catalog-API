@@ -123,4 +123,3 @@ def update_producto(producto_id: int, producto: ProductoUpdate, current_vendedor
 app.include_router(product_router)
 
 # Serve static files
-app.mount("/static",
